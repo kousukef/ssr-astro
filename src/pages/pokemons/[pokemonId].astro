@@ -1,0 +1,46 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import type { IPokemon } from "pokeapi-typescript";
+const pokemonId = Astro.params.pokemonId;
+
+const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
+const pokemon = (await data.json()) as unknown as IPokemon;
+---
+
+<Layout title={pokemon.name}>
+  <main class="w-6/12 m-auto">
+    <img
+      src={pokemon.sprites.front_shiny || pokemon.sprites.front_default}
+      alt=""
+      width="200"
+      height="200"
+      class="m-auto"
+    />
+    <hr class="my-3 border-gray-400" />
+    <h1>{pokemon.name}</h1>
+    <table>
+      <tr>
+        <th>ability:</th>
+        <td
+          >{
+            pokemon.abilities.map((ability) => ability.ability.name).join(", ")
+          }</td
+        >
+      </tr>
+      <tr>
+        <th>height:</th>
+        <td>{pokemon.height}</td>
+      </tr>
+      <tr>
+        <th>weight:</th>
+        <td>{pokemon.weight}</td>
+      </tr>
+      <tr>
+        <th>types:</th>
+        <td>{pokemon.types.map((type) => type.type.name).join(", ")}</td>
+      </tr>
+    </table>
+
+    <a href="/" class="mt-10 block text-right">Go to First Page</a>
+  </main>
+</Layout>

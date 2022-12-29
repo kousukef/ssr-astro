@@ -1,0 +1,24 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PokemonCard, { cardBgList } from "@Components/PokemonCard";
+const title = "First Page Of Nextjs 🥇";
+---
+
+<Layout title={title}>
+  <main class="m-auto max-w-[60%] mt-10">
+    <h1 class="text-4xl font-semibold mb-4">{title}</h1>
+    <div class="flex gap-6 flex-wrap">
+      {
+        [...Array(100).keys()].map((index: number) => (
+          <PokemonCard
+            bgColor={cardBgList[index % cardBgList.length]}
+            pokemonId={index + 1}
+            client:visible
+          />
+        ))
+      }
+    </div>
+  </main>
+</Layout>
+
+<style></style>
