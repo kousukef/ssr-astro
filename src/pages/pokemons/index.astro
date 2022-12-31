@@ -1,8 +1,20 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import PokemonCard, { cardBgList } from "@Components/PokemonCard";
+import type { IPokemon } from "pokeapi-typescript";
 
 const title = "ポケモン一覧ページ";
+
+const promises: Promise<IPokemon>[] = [...Array(100).keys()].map(
+  async (pokemonId: number) => {
+    const data = await fetch(
+      `https://pokeapi.co/api/v2/pokemon/${pokemonId + 1}`
+    );
+    return data.json() as unknown as IPokemon;
+  }
+);
+
+const pokemonList = await Promise.all(promises);
 ---
 
 <Layout title={title}>
@@ -10,11 +22,10 @@ const title = "ポケモン一覧ページ";
     <h1 class="text-4xl font-semibold mb-4">{title}</h1>
     <div class="flex gap-6 flex-wrap">
       {
-        [...Array(100).keys()].map((index: number) => (
+        pokemonList.map((pokemon, index) => (
           <PokemonCard
             bgColor={cardBgList[index % cardBgList.length]}
-            pokemonId={index + 1}
-            client:visible
+            pokemon={pokemon}
           />
         ))
       }
