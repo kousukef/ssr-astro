@@ -1,0 +1,36 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import type { IType } from "pokeapi-typescript";
+import PokemonId from "../pokemons/[pokemonId].astro";
+const type = Astro.params.type;
+
+const data = await fetch(`https://pokeapi.co/api/v2/type/${type}/`);
+const typeData = (await data.json()) as unknown as IType;
+---
+
+<Layout title={typeData.name}>
+  <main class="w-6/12 m-auto py-10">
+    <h1 class="text-center font-semibold text-4xl">{typeData.name}</h1>
+    <hr class="my-3 border-gray-400" />
+    <table
+      class="table-auto border-collapse border border-gray-400 divide-gray-400 divide-y"
+    >
+      <tbody class="divide-y divide-gray-400">
+        <tr>
+          <th>generation:</th>
+          <td>{typeData.generation.name}</td>
+        </tr>
+        <tr>
+          <th>pokemons:</th>
+          <td
+            >{
+              typeData.pokemon.map((pokemon) => pokemon.pokemon.name).join(", ")
+            }</td
+          >
+        </tr>
+      </tbody>
+    </table>
+
+    <a href="/" class="mt-10 block text-right">Go to First Page</a>
+  </main>
+</Layout>
