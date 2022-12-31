@@ -1,19 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import type { IPokemon } from "pokeapi-typescript";
-
-export function getStaticPaths() {
-  const response = [];
-  for (let i = 1; i <= 100; i++) {
-    response.push({
-      params: {
-        pokemonId: i,
-      },
-    });
-  }
-  return response;
-}
-
 const pokemonId = Astro.params.pokemonId;
 
 const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);

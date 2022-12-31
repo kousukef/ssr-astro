@@ -1,0 +1,55 @@
+---
+import PokemonBall, { ballBgList } from "@Components/PokemoBall";
+import Layout from "../layouts/Layout.astro";
+const title = "First Page Of Nextjs 🥇";
+const ballInfos = [
+  {
+    name: "ポケモン\nを見る",
+    href: "/pokemons",
+  },
+  {
+    name: "ノーマル\nタイプ",
+    href: "/types/normal",
+  },
+  {
+    name: "ほのう\nタイプ",
+    href: "/types/fire",
+  },
+  {
+    name: "くさ\nタイプ",
+    href: "/types/grass",
+  },
+  {
+    name: "でんき\nタイプ",
+    href: "/types/electric",
+  },
+  {
+    name: "みず\nタイプ",
+    href: "/types/water",
+  },
+  {
+    name: "ひこう\nタイプ",
+    href: "/types/flying",
+  },
+];
+---
+
+<Layout title={title}>
+  <main class="m-auto max-w-[60%] mt-10">
+    <h1 class="text-4xl font-semibold mb-4">{title}</h1>
+    <h2>ポケモン一覧</h2>
+    <div class="flex gap-6 flex-wrap">
+      {
+        ballInfos.map((ballInfo, index) => (
+          <PokemonBall
+            title={ballInfo.name}
+            bgColor={ballBgList[index % ballBgList.length]}
+            href={ballInfo.href}
+          />
+        ))
+      }
+    </div>
+  </main>
+
+  <style></style>
+</Layout>
