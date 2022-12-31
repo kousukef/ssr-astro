@@ -4,9 +4,10 @@ type Props = {
   title: string;
   body: string | JSX.Element;
   bgColor: "light-blue" | "blue" | "purple" | "pink";
+  href?: string;
 };
 
-const Card: FC<Props> = ({ title, body, bgColor }) => {
+const Card: FC<Props> = ({ title, body, bgColor, href }) => {
   let bgColorStyle: string;
   switch (bgColor) {
     case "light-blue":
@@ -22,9 +23,11 @@ const Card: FC<Props> = ({ title, body, bgColor }) => {
       bgColorStyle = "bg-gradient-to-r from-purple-500 to-pink-500";
       break;
   }
+
+  const Wrapper = href ? "a" : "div";
   return (
-    <div
-      onClick={() => console.log("card is clicked 🚀")}
+    <Wrapper
+      href={href}
       className="w-72 rounded-md shadow-lg border bg-white border-gray-100 overflow-hidden cursor-pointer hover:scale-110 duration-300"
     >
       <div className={`w-full p-5 ${bgColorStyle}`}>
@@ -33,7 +36,7 @@ const Card: FC<Props> = ({ title, body, bgColor }) => {
         </h3>
       </div>
       <p className="text-base p-5">{body}</p>
-    </div>
+    </Wrapper>
   );
 };
 

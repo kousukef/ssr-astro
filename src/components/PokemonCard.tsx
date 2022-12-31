@@ -19,7 +19,7 @@ type Pokemon = {
   img: string;
 };
 
-const Card: FC<Props> = ({ pokemonId, bgColor }) => {
+const PokemonCard: FC<Props> = ({ pokemonId, bgColor }) => {
   useEffect(() => {
     (async () => {
       const data = await fetch(
@@ -102,4 +102,4 @@ S8.858,11.618,10.047,10.427z"
   );
 };
 
-export default Card;
+export default PokemonCard;
